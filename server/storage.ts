@@ -51,7 +51,8 @@ export class GoogleSheetStorage implements IStorage {
         // Map Systems
         const systems: string[] = [];
         this.systemColumns.forEach(sys => {
-          if (row[sys] && (row[sys].toString().trim() !== "" || row[sys].toString().toLowerCase() === "true")) {
+          const val = row[sys]?.toString().trim().toUpperCase();
+          if (val === "TRUE") {
             systems.push(sys);
           }
         });
@@ -59,7 +60,8 @@ export class GoogleSheetStorage implements IStorage {
         // Map Genres
         const genres: string[] = [];
         this.genreColumns.forEach(genre => {
-          if (row[genre] && (row[genre].toString().trim() !== "" || row[genre].toString().toLowerCase() === "true")) {
+          const val = row[genre]?.toString().trim().toUpperCase();
+          if (val === "TRUE") {
             genres.push(genre);
           }
         });
