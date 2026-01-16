@@ -1,0 +1,112 @@
+Website Specifications: Game Menu App
+Project Goal: Create a mobile-first, responsive web application that serves as a searchable "menu" for a video game collection. The app uses a Google Sheet as the backend database.
+
+Tech Stack:
+
+Frontend: HTML, CSS, JavaScript (Vanilla or simple framework like React/Vue).
+
+Backend/Data: Google Sheets API (to fetch data).
+
+1. Data Integration (Backend)
+Source: Google Spreadsheet Columns Mapping: The application must parse the provided CSV/JSON data from the sheet.
+
+Core Data:
+
+Game Title (String) -> Display Name
+
+Description (String) -> Display Text
+
+Max Players (Number) -> Used for filtering
+
+Systems (Boolean Columns):
+
+Columns: PC, Switch, Wii U, Wii, GameCube, N64, SNES, PS3, PS2, PS1, Xbox 360, Xbox (Original), Dreamcast, Saturn, Genesis, Arcade.
+
+Logic: If the cell is non-empty (or TRUE), the game is available on this system.
+
+Genres (Boolean Columns):
+
+Columns: Shooter, Fighting, Beat 'em Up, Racing, Sports, Party, Puzzle, Platformer, RPG, Adventure.
+
+Logic: If the cell is non-empty (or TRUE), the game belongs to this genre.
+
+2. User Interface (Frontend)
+Layout:
+
+Mobile-First Design: The interface must be clean and scrollable, optimized for phone screens.
+
+Sticky Header (Optional): Keep the search/filter options accessible at the top, or use a collapsible "Filter" menu to save screen space on mobile.
+
+Components:
+
+Search Bar (Top):
+
+Input field placeholder: "Search game name..."
+
+Behavior: Real-time filtering of the displayed list based on the Game Title.
+
+Systems Filter:
+
+Label: "Systems"
+
+UI: A flexible grid of checkboxes or toggle chips for each System column listed above.
+
+Behavior (OR Logic):
+
+If no system is selected: Show games from all systems.
+
+If one or more systems are selected: Show games that match at least one of the selected systems.
+
+Genre Filter:
+
+Label: "Genres"
+
+UI: A flexible grid of checkboxes or toggle chips for each Genre column.
+
+Behavior (OR Logic):
+
+Same logic as Systems (Show games matching any selected genre).
+
+Player Count Filter:
+
+Label: "Min Players" (or "Group Size")
+
+UI: Number input box (e.g., type "4").
+
+Behavior:
+
+User inputs the size of their group (e.g., 4).
+
+App filters to show games where Max Players >= Input Value.
+
+Note: Ensure games with empty max player data are handled gracefully (optionally hidden or shown at bottom).
+
+Results List (The Menu):
+
+Display a scrollable list of cards or rows below the filters.
+
+Card Content:
+
+Title: Bold, large text.
+
+Description: Smaller text below the title.
+
+Optional: Badges showing the System/Genre/Max Players for that specific row.
+
+3. Filtering Logic Summary
+A game should be displayed ONLY IF it meets ALL active filter groups:
+
+(Search Query matches Title) AND
+
+(Game supports ANY selected System OR no systems selected) AND
+
+(Game matches ANY selected Genre OR no genres selected) AND
+
+(Max Players >= User Input Min Players)
+
+4. Technical Implementation Notes for Replit
+Use papaparse or a similar library if fetching the sheet as a CSV publication for a simpler, no-auth backend solution.
+
+Ensure the Max Players column is parsed as an integer for comparison.
+
+CSS Grid/Flexbox should be used for the checkbox lists so they wrap nicely on small phone screens.
