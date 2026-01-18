@@ -17,10 +17,6 @@ export class GoogleSheetStorage implements IStorage {
     "Dreamcast", "Saturn", "Genesis", "Arcade"
   ];
 
-  private genreColumns = [
-    "Shooter", "Fighting", "Beat 'em Up", "Racing", "Sports", 
-    "Party", "Puzzle", "Platformer", "RPG", "Adventure"
-  ];
 
   async getGames(): Promise<GameResponse[]> {
     const now = Date.now();
@@ -57,14 +53,9 @@ export class GoogleSheetStorage implements IStorage {
           }
         });
 
-        // Map Genres
-        const genres: string[] = [];
-        this.genreColumns.forEach(genre => {
-          const val = row[genre]?.toString().trim().toUpperCase();
-          if (val === "TRUE") {
-            genres.push(genre);
-          }
-        });
+        // Get Genre from single text column
+        const genreValue = row["Genre"]?.toString().trim() || "";
+        const genres: string[] = genreValue ? [genreValue] : [];
 
         return {
           id: index + 1,
